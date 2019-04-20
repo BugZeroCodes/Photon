@@ -15,7 +15,7 @@
   <tbody>
     <% @albums.each do |album| %>
       <tr>
-        <td><%= album.user %></td>
+        <td><%= album.user.email %></td>
         <td><%= album.date %></td>
         <td><%= album.name %></td>
         <td><%= link_to 'Show', album %></td>
