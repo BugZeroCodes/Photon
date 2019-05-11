@@ -2,7 +2,7 @@
 
 <p>
   <strong>Album:</strong>
-  <%= @photo.album %>
+  <%=  @photo.album.name %>
 </p>
 
 <p>
@@ -11,6 +11,6 @@
 </p>
 
 <%= image_tag @photo.file %>
-
+<br>
 <%= link_to 'Edit', edit_album_photo_path(@album, @photo) %> |
 <%= link_to 'Back', album_photos_path(@album) %>

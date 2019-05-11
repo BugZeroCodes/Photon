@@ -2,7 +2,7 @@
 
 <h1>Albums</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>User</th>
@@ -18,9 +18,9 @@
         <td><%= album.user.email %></td>
         <td><%= album.date %></td>
         <td><%= album.name %></td>
-        <td><%= link_to 'Show', album %></td>
-        <td><%= link_to 'Edit', edit_album_path(album) %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', album, class: 'btn btn-success' %></td>
+        <td><%= link_to 'Edit', edit_album_path(album), class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>

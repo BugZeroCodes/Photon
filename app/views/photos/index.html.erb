@@ -2,7 +2,7 @@
 
 <h1>Photos</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Album</th>
@@ -14,9 +14,11 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><%= link_to 'Show', album_photo_path(album_id: @album.id, id: photo.id) %></td>
-        <td><%= link_to 'Edit', edit_album_photo_path(album_id: @album.id, id: photo.id) %></td>
-        <td><%= link_to 'Destroy', album_photo_path(id: photo.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= photo.album.name %></td>
+        <td><%= photo.description %></td>
+        <td><%= link_to 'Show', album_photo_path(album_id: @album.id, id: photo.id), class: 'btn btn-success' %></td>
+        <td><%= link_to 'Edit', edit_album_photo_path(album_id: @album.id, id: photo.id), class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', album_photo_path(id: photo.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
