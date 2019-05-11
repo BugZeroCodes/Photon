@@ -1,10 +1,11 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_album
 
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    @photos = @album.photos
   end
 
   # GET /photos/1
@@ -14,7 +15,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/new
   def new
-    @photo = Photo.new
+    @photo = Photo.new(album: @album)
   end
 
   # GET /photos/1/edit
@@ -24,11 +25,11 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.json
   def create
-    @photo = Photo.new(photo_params)
+    @photo = Photo.new(photo_params.merge(album: @album))
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
+        format.html { redirect_to album_photos_path(@album), notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class PhotosController < ApplicationController
   def update
     respond_to do |format|
       if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        format.html { redirect_to album_photo_path(@photo), notice: 'Photo was successfully updated.' }
         format.json { render :show, status: :ok, location: @photo }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class PhotosController < ApplicationController
   def destroy
     @photo.destroy
     respond_to do |format|
-      format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
+      format.html { redirect_to album_photos_url, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,8 +68,12 @@ class PhotosController < ApplicationController
       @photo = Photo.find(params[:id])
     end
 
+    def set_album
+      @album = Album.find(params[:album_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:album_id, :description)
+      params.require(:photo).permit(:description, :file)
     end
 end
