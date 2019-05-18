@@ -1,19 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-10">
+      <h1><%= @album.name  %></h1>
+      <p> By: <%= @album.user.email %></p>
+      <td><%= @album.date.strftime "%m/%d/%Y" %></td>
+    </div>
+    <div class="col-2">
+      <%= link_to 'New Photo', new_album_photo_path(@album), class: "btn btn-primary" %>
+      <%= link_to 'Edit', edit_album_path(@album), class: 'btn btn-secondary' %>
 
-<p>
-  <strong>User:</strong>
-  <%= @album.user.email %>
-</p>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @album.date %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @album.name %>
-</p>
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
-<%= link_to 'New Photo', new_album_photo_path(@album), class: "btn btn-primary" %>
+<% @album.photos.each do | photo | %>
+<%= image_tag photo.file, width: 256, height: 256, class: 'img-thumbnail' %>
+<% end %>
