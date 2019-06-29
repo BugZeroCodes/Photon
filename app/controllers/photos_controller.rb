@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to album_photos_path(@album), notice: 'Photo was successfully created.' }
+        format.html { redirect_to album_path(@album), notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
         format.html { render :new }
