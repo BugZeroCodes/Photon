@@ -25,8 +25,9 @@
         <% end %>
       </div>
     </nav>
-
-
-    <%= yield %>
+    <%= yield :jumbotron %>
+    <div class="container page-content">
+      <%= yield %>
+    </div>
   </body>
 </html>
