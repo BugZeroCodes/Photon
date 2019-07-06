@@ -20,6 +20,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1/edit
   def edit
+    authorize @album
   end
 
   # POST /albums
@@ -28,6 +29,8 @@ class AlbumsController < ApplicationController
   def create
     new_album_params = album_params.merge ({user_id: current_user.id})
     @album = Album.new(new_album_params)
+
+     authorize @album
 
     respond_to do |format|
       if @album.save
@@ -43,6 +46,7 @@ class AlbumsController < ApplicationController
   # PATCH/PUT /albums/1
   # PATCH/PUT /albums/1.json
   def update
+    authorize @album
     respond_to do |format|
       if @album.update(album_params)
         format.html { redirect_to @album, notice: 'Album was successfully updated.' }
@@ -57,9 +61,10 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1
   # DELETE /albums/1.json
   def destroy
+    authorize @album
     @album.destroy
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
+      format.html { redirect_to albums_url, notice: 'Album was successfully deleted.' }
       format.json { head :no_content }
     end
   end

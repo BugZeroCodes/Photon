@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Photon</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Photon</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
-      <%= link_to 'Photon', root_path, class: 'navbar-brand' %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <%= link_to 'Photon', root_path, class: 'navbar-brand' %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <ul class='navbar-nav flex-row ml-md-auto d-none d-md-flex'>
+      <% if user_signed_in? %>
+      <li class='nav-item'>Logged in as <span class='font-weight-bold'><%= current_user.email %></span></li>
+      <li class='nav-item px-2'><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'text-secondary text-right' %></li>
+      <% else %>
+      <li class="nav-item px-2"><%= link_to 'Sign Up', new_user_registration_path, class: 'text-secondary' %></li>
+      |
+      <li class='nav-item px-2'><%= link_to 'Sign In', new_user_session_path, class: 'text-secondary' %></li>
+      <% end %>
+    </ul>
+  </nav>
+  <%= yield :jumbotron %>
+  <div class="container page-content">
+    <% if flash.key?(:alert) %>
+    <div class="alert alert-danger alert-dismissable fade show my-4" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="close" data-dismiss='alert'>
+        <span aria-hidden='true'>&times;</span>
       </button>
-
-      <div>
-        <% if user_signed_in? %>
-          <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'text-secondary text-right' %>
-        <% else %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'text-secondary' %>
-          |
-          <%= link_to 'Sign In', new_user_session_path, class: 'text-secondary' %>
-        <% end %>
-      </div>
-    </nav>
-    <%= yield :jumbotron %>
-    <div class="container page-content">
-      <%= yield %>
     </div>
-  </body>
+    <% end %>
+    <%= yield %>
+  </div>
+</body>
 </html>
