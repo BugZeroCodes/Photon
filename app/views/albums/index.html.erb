@@ -19,8 +19,12 @@
         <td><%= album.date %></td>
         <td><%= album.name %></td>
         <td><%= link_to 'Show', album, class: 'btn btn-success' %></td>
+        <% if policy(album).update? %>
         <td><%= link_to 'Edit', edit_album_path(album), class: 'btn btn-warning' %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <% end %>
+        <% if policy(album).destroy? %>
+        <td><%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,6 @@
 
 <br>
 
+<% if policy(Album.new).create? %>
 <%= link_to 'Add Album', new_album_path, class: "btn btn-primary" %>
+<% end %>
