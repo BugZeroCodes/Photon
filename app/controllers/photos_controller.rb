@@ -12,6 +12,7 @@ class PhotosController < ApplicationController
   # GET /photos/1
   # GET /photos/1.json
   def show
+    authorize @photo
   end
 
   # GET /photos/new
@@ -21,12 +22,15 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+    authorize @photo
   end
 
   # POST /photos
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params.merge(album: @album))
+
+    authorize @photo
 
     respond_to do |format|
       if @photo.save
@@ -42,6 +46,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    authorize @photo
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to album_photo_path(@album, @photo), notice: 'Photo was successfully updated.' }
@@ -56,6 +61,7 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
+    authorize @photo
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to album_photos_url, notice: 'Photo was successfully destroyed.' }
