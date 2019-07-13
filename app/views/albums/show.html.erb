@@ -7,7 +7,9 @@
       <td><%= @album.date.strftime "%m/%d/%Y" %></td>
     </div>
     <div class="col-2">
+      <% if policy(Photo.new(album: @album)).create? %>
       <%= link_to 'New Photo', new_album_photo_path(@album), class: "btn btn-primary" %>
+      <% end %>
       <% if policy(@album).update? %>
       <%= link_to 'Edit', edit_album_path(@album), class: 'btn btn-secondary' %>
       <% end %>
