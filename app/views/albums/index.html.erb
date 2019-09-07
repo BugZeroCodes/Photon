@@ -16,7 +16,7 @@
     <% @albums.each do |album| %>
       <tr>
         <td><%= album.user.email %></td>
-        <td><%= album.date %></td>
+        <td><%= album.date.strftime "%m/%d/%Y" %></td>
         <td><%= album.name %></td>
         <td><%= link_to 'Show', album, class: 'btn btn-success' %></td>
         <% if policy(album).update? %>
